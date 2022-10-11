@@ -1109,8 +1109,23 @@ while loop == 1: #La boucle relance le script en continue
     #__________Décodage__________
     if menu_choice == 1 :
         coded_message = str(input("\n\nMessage: ")) #Demande à l'utilisateur le message à décoder
-        coded_fonction = int(input("\nNumber 1: ")) #Demande à l'utilisateur la 1ere valeur (La fonction utilisé)
-        coded_create_key = int(input("Number 2: ")) #Demande à l'utilisateur la 2eme valeur (Le modificateur de clé utilisé)
+        
+        
+        coded_fonction = coded_message[0]
+        listeF = ["&","§","+","£","€","*","$","@","#","à","o",",","!","?",";","/",":",".","(",")"]
+        for i in range(20):
+            if coded_fonction == listeF[i]:
+                coded_fonction = i+1
+
+        
+        
+        coded_create_key = coded_message[1]
+        listeKC = ["A","f","'","é","ç","w","%","ù","è","P","=","-","4","0","7","z","S",")","<","g"]
+        for i in range(20):
+            if coded_create_key == listeKC[i]:
+                coded_create_key = i+1
+
+        coded_key = (coded_message[2]+coded_message[3]+coded_message[4]+coded_message[5])
         coded_key = int(input("Number 3: ")) #Demande à l'utilisateur la 3eme valeur (La clé initiale)
         
         # Modifie la clé initiale en fonction du modificateur donné
@@ -1174,10 +1189,27 @@ while loop == 1: #La boucle relance le script en continue
         # Renvoie à l'utilisateur 3 valeurs (Respectivement: La fonction utilisé, le modificateur de clé, la clé initiale)
         print("\n\nNombre 1:") 
         print(fonction)
+        listeF = ["&","§","+","£","€","*","$","@","#","à","o",",","!","?",";","/",":",".","(",")"]
+        afonction = listeF[fonction-1]
         print("\n\nNombre 2:")
         print(key_choice)
+        listeKC = ["A","f","'","é","ç","w","%","ù","è","P","=","-","4","0","7","z","S",")","<","g"]
+        akey_choice = listeKC[key_choice-1]
         print("\n\nNombre 3:")
         print(code_key)
+        if code_key <= 9:
+            code_key = ("000"+str(code_key))
+        elif code_key <= 99:
+            code_key = ("00"+str(code_key))
+        elif code_key <= 999:
+            code_key = ("0"+str(code_key))
+        else:
+            code_key = str(code_key)
+        acode_key = ""
+        num2str = ["b", "§", "ù", "à", "H", "%", "!", "3", "#", "S"]
+        for i in range(len(code_key)):
+            acode_key += num2str[int(code_key[i])]
+        print("\n\n")
         print("\n\n")
         
         ####
@@ -1192,5 +1224,5 @@ while loop == 1: #La boucle relance le script en continue
                 key = key - 10000
         final_text = ''.join(final_message) # Regroupe chaque charachtères de la liste en un str
         print("Message encodé:")
-        print("'"final_text+"'") #Envoie le message codé entre guillemets
+        print("'"+afonction+akey_choice+acode_key+final_text+"'") #Envoie le message codé entre guillemets
         useless = input("\n\n\nAppuyer sur entrée pour revenir au menu") #Renvoie au menu
