@@ -1129,10 +1129,12 @@ while loop == 1: #La boucle relance le script en continue
         Tcoded_key = (coded_message[2]+coded_message[3]+coded_message[4]+coded_message[5])
         coded_key = ""
         for j in range(4):
-            for i in range(20):
+            for i in range(10):
                 if Tcoded_key[j] == num2str[i]:
                     coded_key += str(i)
         coded_key = int(coded_key)
+        for i in range(6):
+            coded_message = coded_message[1:]
         # Modifie la clé initiale en fonction du modificateur donné
         if coded_create_key == 1:
             real_coded_key = coded_key * 5 + 2
@@ -1184,7 +1186,7 @@ while loop == 1: #La boucle relance le script en continue
                 real_coded_key = real_coded_key - 10000
         final_text = ''.join(coded_solved_message) # Regroupe chaque charachtères de la liste en un str
         print("\nMessage décodé:") 
-        print("'", final_text, "'") #Envoie le message décodé entre guillemets
+        print("'"+final_text+"'") #Envoie le message décodé entre guillemets
         useless = input("\n\n\nAppuyer sur entrée pour revenir au menu") #Renvoie au menu
 
     #__________Encodage__________
@@ -1192,16 +1194,10 @@ while loop == 1: #La boucle relance le script en continue
         uncoded = str(input("Message: ")) #Demande à l'utilisateur le message à coder
         
         # Renvoie à l'utilisateur 3 valeurs (Respectivement: La fonction utilisé, le modificateur de clé, la clé initiale)
-        print("\n\nNombre 1:") 
-        print(fonction)
         listeF = ["&","§","+","£","€","*","$","@","#","à","o",",","!","?",";","/",":",".","(",")"]
         afonction = listeF[fonction-1]
-        print("\n\nNombre 2:")
-        print(key_choice)
         listeKC = ["A","f","'","é","ç","w","%","ù","è","P","=","-","4","0","7","z","S",")","<","g"]
         akey_choice = listeKC[key_choice-1]
-        print("\n\nNombre 3:")
-        print(code_key)
         if code_key <= 9:
             code_key = ("000"+str(code_key))
         elif code_key <= 99:
