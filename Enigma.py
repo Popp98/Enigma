@@ -1124,10 +1124,15 @@ while loop == 1: #La boucle relance le script en continue
         for i in range(20):
             if coded_create_key == listeKC[i]:
                 coded_create_key = i+1
-
-        coded_key = (coded_message[2]+coded_message[3]+coded_message[4]+coded_message[5])
-        coded_key = int(input("Number 3: ")) #Demande à l'utilisateur la 3eme valeur (La clé initiale)
         
+        num2str = ["b", "§", "ù", "à", "H", "%", "!", "3", "#", "S"]
+        Tcoded_key = (coded_message[2]+coded_message[3]+coded_message[4]+coded_message[5])
+        coded_key = ""
+        for j in range(4):
+            for i in range(20):
+                if Tcoded_key[j] == num2str[i]:
+                    coded_key += str(i)
+        coded_key = int(coded_key)
         # Modifie la clé initiale en fonction du modificateur donné
         if coded_create_key == 1:
             real_coded_key = coded_key * 5 + 2
