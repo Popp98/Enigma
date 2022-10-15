@@ -45,8 +45,7 @@ loop = 1 #Permet à la boucle de ce lancer sans utiliser True au cas où on voud
 while loop == 1: #La boucle relance le script en continue
     clear = ("\n\n\n") #Saute 3 ligne
     print(clear)
-    
-    
+
     #__________Message d'acceuil__________
     print("Bonjour !\nBienvenue sur la version 1.4 de Enigma\n")
     print('''Il est préférable de coder et décoder des phrases sans:
@@ -72,12 +71,16 @@ while loop == 1: #La boucle relance le script en continue
     code_key = random.randint(1, 9999) #Génére une clé aléatoire
     key_choice = random.randint(1, 20) #Genere aléatoirement un modificateur de clé
     fonction = random.randint(1, 20) #Génére aléatoirement une fonction affine
-    uncoded = str("NULL") 
+    
+    #On initialise à 0 des variables qu'on tuilise plus tard
+    uncoded = str("NULL")  
     lettre = 0
     key = 0
     final_message = [] 
     coded_solved_message = [] 
     final_text = str()
+
+    # Modifie la clé inital en fonction du modificateur de clé généré
     real_key1 = code_key * 5 + 2
     real_key2 = code_key * 8 + 3
     real_key3 = code_key * 3 + 4
@@ -98,7 +101,7 @@ while loop == 1: #La boucle relance le script en continue
     real_key18 = code_key * 20 + 4
     real_key19 = code_key * 24 + 32
     real_key20 = code_key * 22 + 21
-    useless = str("Cette variable est pas vraiment utile mais c'est surtout que ça sert à rien de l'initialiser mais je me fais chier donc j'éris de la merde au lieu de faire mes exos de physique... Putin mais pourquoi je fais ce script en plus XD Y'a grave moyen que qq est déjà fait pareil duc n dirait juste que je le copier mais le pire que c'est que j'ai pas meme pas copier un seul morceau de code alors que ça aurait été tellement plus vite xD, si qq (autre que moi-meme hein !) lis-ça et bah passes une bonen journée ! (PASSEZ une bonne journée si c'est un adulte qui regadre ça)")
+    useless = str("Cette variable est pas vraiment utile mais c'est surtout que ça sert à rien de l'initialiser mais je me fais chier donc j'écris de la merde au lieu de faire mes exos de physique... Putin mais pourquoi je fais ce script en plus XD Y'a grave moyen que qq est déjà fait pareil duc on dirait juste que je le copier mais le pire que c'est que j'ai pas meme pas copier un seul morceau de code alors que ça aurait été tellement plus vite xD, si qq (autre que moi-meme hein !) lis-ça et bah passes une bonen journée ! (PASSEZ une bonne journée si c'est un adulte qui regarde ça)")
 
     # Modifie la clé inital en fonction du modificateur de clé généré
     if key_choice == 1:
@@ -144,17 +147,20 @@ while loop == 1: #La boucle relance le script en continue
 
     #__________Définition des fonction__________
     def encoding(lettre, key): #Fonction utilisée pour encoder un message
+        #On crée un liste avec tout les caractères que l'on souhaite utiliser
         LISTE_LETTRE = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9","!",'"',"#","$","%","&","'","(",")","*","+",",","-",".","/",":",";","<","=",">","?","@","[","]"," ","^","_","{","}","~","€","ƒ","†","‰","‡","Š","Œ","Ž","š","œ","ž","Ÿ","¢","£","¥","§","¨","µ","¿","À","Á","Â","Ã","Ä","Å","Æ","Ç","È","É","Ê","Ë","Ì","Í","Î","Ï","Ð","Ñ","Ò","Ó","Ô","Õ","Ö","Ø","Ù","Ú","Û","Ü","Ý","ß","à","á","â","ã","ä","å","æ","ç","è","é","ê","ë","ì","í","î","ï","ñ","ò","ó","ô","õ","ö","÷","ø","ù","ú","û","ü","ý","ÿ"]
-        for i in range(len(LISTE_LETTRE)):
-            if lettre == LISTE_LETTRE[i]:
-                lettre = (i+1)
-                break
-        while key > len(LISTE_LETTRE):
-            key -= len(LISTE_LETTRE)
-        lettre += key
-        while lettre > len(LISTE_LETTRE):
-            lettre -= len(LISTE_LETTRE)
-        lettre = LISTE_LETTRE[lettre-1]
+        
+        for i in range(len(LISTE_LETTRE)): #On répéte autant de fois qu'il y a de valeur dans la liste LISTE_LETTRE
+            if lettre == LISTE_LETTRE[i]: #Si la lettre que l'on cherche à encoder est égal à la lettre en position i dans LISTE_LETTRE:
+                lettre = (i+1) #La lettre prend comme valeur sa place dans l'alphabet
+                break #Une fois qu'on à trouve pour la bonne valeur on sort du "for i in range"
+        
+        while key > len(LISTE_LETTRE): #Tant que la clé est trop grande
+            key -= len(LISTE_LETTRE) #On la réduit
+        lettre += key #On ajoute la clé à lettre (Qui correspont actuellement à son emplacement dans la liste)
+        while lettre > len(LISTE_LETTRE): #Si le nouvel emplacement de lettre sort de la liste
+            lettre -= len(LISTE_LETTRE) #On le reduit pour qu'il soit bien dans la liste
+        lettre = LISTE_LETTRE[lettre-1] #On attribut à lettre la nouvelle valeur coresspondante dans la list LISTE_LETTRE
         return lettre
     def function(key, key_choice, fonction): #Fonction utilisée pour modifier une clé
         #La clé est modifié par la fonction choisie au hasard à l'initialisation des variables
@@ -213,10 +219,6 @@ while loop == 1: #La boucle relance le script en continue
             lettre += len(LISTE_LETTRE)
         lettre = LISTE_LETTRE[lettre-1]
         return lettre
-    def hell(): #Fonction utilisée pour spammer l'utilisateur 
-        while True: #Répéte indéfiniment
-            weird_number = random.randint(1000000000000000, 10000000000000000000000000)
-            print(weird_number)       
     #__________Code__________
 
     #__________Décodage__________
@@ -303,14 +305,16 @@ while loop == 1: #La boucle relance le script en continue
         useless = input("\n\n\nAppuyer sur entrée pour revenir au menu") #Renvoie au menu
 
     #__________Encodage__________
-    elif menu_choice == 2 :
+    elif menu_choice == 2 : #Si l'utilisateur choisis d'encoder un message
         uncoded = str(input("Message: ")) #Demande à l'utilisateur le message à coder
-        
-        # Renvoie à l'utilisateur 3 valeurs (Respectivement: La fonction utilisé, le modificateur de clé, la clé initiale)
+
         listeF = ["&","§","+","£","€","*","$","@","#","à","o",",","!","?",";","/",":",".","(",")"]
-        afonction = listeF[fonction-1]
+        afonction = listeF[fonction-1] #Transforme la valeur de la fonction en un caractéres à rajouter dans le message
+
         listeKC = ["A","f","'","é","ç","w","%","ù","è","P","=","-","4","0","7","z","S",")","<","g"]
-        akey_choice = listeKC[key_choice-1]
+        akey_choice = listeKC[key_choice-1] #Transforme la valeur de la clé en un caractéres à rajouter dans le message
+        
+
         if code_key <= 9:
             code_key = ("000"+str(code_key))
         elif code_key <= 99:
@@ -319,6 +323,7 @@ while loop == 1: #La boucle relance le script en continue
             code_key = ("0"+str(code_key))
         else:
             code_key = str(code_key)
+        
         acode_key = ""
         num2str = ["b", "§", "ù", "à", "H", "%", "!", "3", "#", "S"]
         for i in range(len(code_key)):
