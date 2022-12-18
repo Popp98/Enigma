@@ -2,6 +2,7 @@
 import random
 import time
 import sys
+import base64
 
 
 #__________Objectifs du projets__________
@@ -60,8 +61,7 @@ while loop == 1: #La boucle relance le script en continue
         \nQue voulez-vous faire ?
         \n1. Décodez un message
         \n2. Encodez un message
-        \n3. Info
-        \n4. Quitter
+        \n3. Quitter
         \n\n\n''')
     
     
@@ -219,13 +219,29 @@ while loop == 1: #La boucle relance le script en continue
             lettre += len(LISTE_LETTRE)
         lettre = LISTE_LETTRE[lettre-1]
         return lettre
-    #__________Code__________
+    def encode2(message: str, encoding: str = "utf-8") -> str:
+        # Encode the message as a bytes object
+        message_bytes = message.encode(encoding)
+        
+        # Encode the bytes object as a base64 string
+        base64_string = base64.b64encode(message_bytes)
+        
+        # Return the base64 string as a string
+        return base64_string.decode(encoding)
+    def decode2(base64_string: str, encoding: str = "utf-8") -> str:
+        # Decode the base64 string as a bytes object
+        message_bytes = base64.b64decode(base64_string)
+        
+        # Decode the bytes object as a string using the specified encoding
+        return message_bytes.decode(encoding)
+#__________Code__________
 
     #__________Décodage__________
     if menu_choice == 1 :
-        coded_message = str(input("\n\nMessage: ")) #Demande à l'utilisateur le message à décoder
-        
-        
+        coded_message1 = str(input("\n\nMessage: ")) #Demande à l'utilisateur le message à décoder
+        print(coded_message1)
+        coded_message = decode2(coded_message1)
+        print(coded_message)
         coded_fonction = coded_message[0]
         listeF = ["&","§","+","£","€","*","$","@","#","à","o",",","!","?",";","/",":",".","(",")"]
         for i in range(20):
@@ -341,7 +357,15 @@ while loop == 1: #La boucle relance le script en continue
             key = function(key, key_choice, fonction) #Modifie la clé grace à la fonction function(real_coded_key, coded_create_key, coded_fonction)
             while key > 10000: # Réduit la taille de la clé si celle-ci est trop grande (OPTIMISATION)
                 key = key - 10000
-        final_text = ''.join(final_message) # Regroupe chaque charachtères de la liste en un str
+        full_text = ''.join(final_message) # Regroupe chaque charachtères de la liste en un str
+        full_message = afonction+akey_choice+acode_key+full_text
+        #Fin de l'encodage 1
+        #Encodage 2
+        final_text = encode2(full_message)
         print("Message encodé:")
-        print("'"+afonction+akey_choice+acode_key+final_text+"'") #Envoie le message codé entre guillemets
+        print("'"+final_text+"'") #Envoie le message codé entre guillemets
         useless = input("\n\n\nAppuyer sur entrée pour revenir au menu") #Renvoie au menu
+    
+    #__________Quitter__________
+    elif menu_choice == 3 :
+        sys.exit()
